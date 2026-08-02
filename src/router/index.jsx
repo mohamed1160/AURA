@@ -2,6 +2,8 @@ import { Routes, Route } from 'react-router-dom'
 import Navbar from '../components/layout/Navbar'
 import Home   from '../pages/Home'
 import Shop   from '../pages/Shop'
+import Cart     from '../pages/Cart'
+import Checkout from '../pages/Checkout'
 import OurStory from '../pages/OurStory'
 import Contact  from '../pages/Contact'
 
@@ -46,8 +48,8 @@ export default function AppRouter() {
         <Route path="/contact"            element={<Contact />} />
 
         {/* ── Commerce Pages ── */}
-        <Route path="/cart"               element={<ComingSoon name="Cart" />} />
-        <Route path="/checkout"           element={<ComingSoon name="Checkout" />} />
+        <Route path="/cart"               element={<Cart />} />
+        <Route path="/checkout"           element={<Checkout />} />
         <Route path="/wishlist"           element={<ComingSoon name="Wishlist" />} />
         <Route path="/track-order"        element={<ComingSoon name="Track Order" />} />
 

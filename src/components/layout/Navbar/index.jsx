@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { Search, User, ShoppingBag } from 'lucide-react'
+import { useShopStore } from '../../../store/useShopStore'
 import logoImg from '../../../assets/images/aura-logo.png'
 
 const NAV_LINKS = [
@@ -12,6 +13,11 @@ const NAV_LINKS = [
 ]
 
 export default function Navbar() {
+  const cart = useShopStore((state) => state.cart);
+  // Filter out any corrupted items that don't have a valid price
+  const validCart = cart ? cart.filter(item => item && typeof item.price === 'number') : [];
+  const cartCount = validCart.reduce((total, item) => total + (item.quantity || 1), 0);
+
   return (
     <header className="
       fixed top-0 left-0 right-0 z-50
@@ -57,29 +63,33 @@ export default function Navbar() {
       {/* Action Icons */}
       <div className="flex items-center gap-4">
         {[
-          { icon: Search,      label: 'Search',  badge: false },
-          { icon: User,        label: 'Account', badge: false },
-          { icon: ShoppingBag, label: 'Cart',    badge: true  },
-        ].map(({ icon: Icon, label, badge }) => (
-          <button
-            key={label}
-            aria-label={label}
-            className="relative w-9 h-9 flex items-center justify-center text-[#3D2B0E] hover:text-[#B8924A] transition-colors duration-200"
-          >
-            <Icon size={18} strokeWidth={1.5} />
-            {badge && (
-              <span className="
-                absolute top-0.5 right-0.5
-                w-4 h-4 rounded-full
-                bg-[#B8924A] text-white
-                flex items-center justify-center
-                text-[0.55rem] font-semibold font-[family-name:var(--font-ui)]
-              ">
-                0
-              </span>
-            )}
-          </button>
-        ))}
+          { icon: Search,      label: 'Search' },
+          { icon: User,        label: 'Account' },
+          { icon: ShoppingBag, label: 'Cart',    to: '/cart', badge: true },
+        ].map(({ icon: Icon, label, to, badge }) => {
+          const Wrapper = to ? NavLink : 'button';
+          return (
+            <Wrapper
+              key={label}
+              to={to}
+              aria-label={label}
+              className="relative w-9 h-9 flex items-center justify-center text-[#3D2B0E] hover:text-[#B8924A] transition-colors duration-200"
+            >
+              <Icon size={18} strokeWidth={1.5} />
+              {badge && cartCount > 0 && (
+                <span className="
+                  absolute -top-1 -right-1
+                  w-4 h-4 rounded-full
+                  bg-[#B8924A] text-white
+                  flex items-center justify-center
+                  text-[0.55rem] font-semibold font-[family-name:var(--font-ui)]
+                ">
+                  {cartCount}
+                </span>
+              )}
+            </Wrapper>
+          );
+        })}
       </div>
     </header>
   )

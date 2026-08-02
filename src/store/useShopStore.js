@@ -53,14 +53,44 @@ export const useShopStore = create()(
           };
         }),
 
-      cartCount: 0,
-      addToCart: () => set((state) => ({ cartCount: state.cartCount + 1 })),
+      cart: [],
+      addToCart: (product, quantity = 1, size = "One Size", color = "Default") =>
+        set((state) => {
+          const existingItemIndex = state.cart.findIndex(
+            (item) => item.id === product.id && item.size === size && item.color === color
+          );
+          if (existingItemIndex >= 0) {
+            const updatedCart = [...state.cart];
+            updatedCart[existingItemIndex].quantity += quantity;
+            return { cart: updatedCart };
+          }
+          return { cart: [...state.cart, { ...product, quantity, size, color }] };
+        }),
+      removeFromCart: (productId, size, color) =>
+        set((state) => ({
+          cart: state.cart.filter(
+            (item) => !(item.id === productId && item.size === size && item.color === color)
+          ),
+        })),
+      updateQuantity: (productId, size, color, quantity) =>
+        set((state) => ({
+          cart: state.cart.map((item) =>
+            item.id === productId && item.size === size && item.color === color
+              ? { ...item, quantity: Math.max(1, quantity) }
+              : item
+          ),
+        })),
+      get cartCount() {
+        // We can define it as a getter, but Zustand state doesn't natively support getters well inside set.
+        // Let's just compute it in the component. We'll leave cartCount as a function or just rely on state.cart.reduce.
+        return undefined; // We will remove cartCount and compute it on the fly in components
+      },
     }),
     {
       name: "aura-shop-storage",
       partialize: (state) => ({
         wishlist: state.wishlist,
-        cartCount: state.cartCount,
+        cart: state.cart,
       }),
     },
   ),
