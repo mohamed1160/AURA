@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* ── AURA Brand Tokens (CSS Custom Properties) ── */
+@theme {
+  /* Colors */
+  --color-gold:         #B8924A;
+  --color-gold-light:   #D4AA6A;
+  --color-gold-dark:    #8C6A2F;
+  --color-cream:        #F5EFE4;
+  --color-cream-dark:   #EDE5D6;
+  --color-aura-dark:    #1A1208;
+  --color-aura-mid:     #2C1F0E;
+  --color-text:         #3D2B0E;
+  --color-text-light:   #7A6245;
+  --color-border:       #D4C4A0;
+
+  /* Fonts */
+  --font-sans:    'Poppins', sans-serif;
+  --font-serif:   'Libertinus Serif', serif;
+  --font-display: 'Libertinus Serif', serif;
+  --font-body:    'Poppins', sans-serif;
+  --font-ui:      'Poppins', sans-serif;
+}
+
+/* ── Base Reset ── */
+/* *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } */
+
+html  { scroll-behavior: smooth; }
+
+body  {
+  font-family: var(--font-ui);
+  background-color: var(--color-cream);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a       { text-decoration: none; color: inherit; }
+button  { cursor: pointer; border: none; background: none; font-family: inherit; }
+img     { display: block; max-width: 100%; }
+ul, ol  { list-style: none; }
