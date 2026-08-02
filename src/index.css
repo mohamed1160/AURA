@@ -1,8 +1,5 @@
-@import "tailwindcss";
-<<<<<<< HEAD
-=======
 @import url('https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
->>>>>>> ea6e0fcb1629ee39a39902e88da80e2ed7a57ea1
+@import "tailwindcss";
 
 /* ── AURA Brand Tokens (CSS Custom Properties) ── */
 @theme {
@@ -19,17 +16,11 @@
   --color-border:       #D4C4A0;
 
   /* Fonts */
-<<<<<<< HEAD
-  --font-display: 'Cinzel', serif;
-  --font-body:    'Cormorant Garamond', serif;
-  --font-ui:      'Inter', sans-serif;
-=======
   --font-sans:    'Poppins', sans-serif;
   --font-serif:   'Libertinus Serif', serif;
   --font-display: 'Libertinus Serif', serif;
   --font-body:    'Poppins', sans-serif;
   --font-ui:      'Poppins', sans-serif;
->>>>>>> ea6e0fcb1629ee39a39902e88da80e2ed7a57ea1
 }
 
 /* ── Base Reset ── */
@@ -46,10 +37,6 @@ body  {
 }
 
 a       { text-decoration: none; color: inherit; }
-<<<<<<< HEAD
-button  { cursor: pointer; border: none; font-family: inherit; }
-=======
-button  { cursor: pointer; border: none; background: none; font-family: inherit; }
->>>>>>> ea6e0fcb1629ee39a39902e88da80e2ed7a57ea1
+button  { cursor: pointer; font-family: inherit; }
 img     { display: block; max-width: 100%; }
 ul, ol  { list-style: none; }
