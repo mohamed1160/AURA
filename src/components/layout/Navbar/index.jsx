@@ -25,7 +25,7 @@ export default function Navbar() {
         to="/"
         className="hover:opacity-75 transition-opacity flex items-center justify-center"
       >
-        <img src={logoImg} alt="AURA" className="h-24 w-auto object-contain mix-blend-multiply scale-125 origin-center" />
+        <img src={logoImg} alt="AURA" className="h-20 w-auto object-contain mix-blend-multiply scale-110 origin-center" />
       </NavLink>
 
       {/* Nav Links */}
