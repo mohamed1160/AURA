@@ -1,6 +1,6 @@
-import { Search } from 'lucide-react';
-import { useShopStore } from '../../../store/useShopStore';
-import { useEffect, useState } from 'react';
+import { Search } from "lucide-react";
+import { useShopStore } from "../../../store/useShopStore";
+import { useEffect, useState } from "react";
 
 export default function SearchBar() {
   const currentQuery = useShopStore((state) => state.filters.searchQuery);
@@ -11,7 +11,7 @@ export default function SearchBar() {
   useEffect(() => {
     const handler = setTimeout(() => {
       if (localQuery !== currentQuery) {
-        setFilter('searchQuery', localQuery);
+        setFilter("searchQuery", localQuery);
       }
     }, 300);
     return () => clearTimeout(handler);

@@ -1,12 +1,8 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useShopStore } from '../../../store/useShopStore';
-import { cn } from '../../../lib/utils';
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useShopStore } from "../../../store/useShopStore";
+import { cn } from "../../../lib/utils";
 
-interface PaginationProps {
-  totalPages: number;
-}
-
-export default function Pagination({ totalPages }: PaginationProps) {
+export default function Pagination({ totalPages }) {
   const currentPage = useShopStore((state) => state.page);
   const setPage = useShopStore((state) => state.setPage);
 
@@ -19,20 +15,28 @@ export default function Pagination({ totalPages }: PaginationProps) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
       if (currentPage <= 3) {
-        pages.push(1, 2, 3, '...', totalPages);
+        pages.push(1, 2, 3, "...", totalPages);
       } else if (currentPage >= totalPages - 2) {
-        pages.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
+        pages.push(1, "...", totalPages - 2, totalPages - 1, totalPages);
       } else {
-        pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
+        pages.push(
+          1,
+          "...",
+          currentPage - 1,
+          currentPage,
+          currentPage + 1,
+          "...",
+          totalPages,
+        );
       }
     }
     return pages;
   };
 
-  const handlePageChange = (p: number | string) => {
-    if (typeof p === 'number') {
+  const handlePageChange = (p) => {
+    if (typeof p === "number") {
       setPage(p);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -50,14 +54,14 @@ export default function Pagination({ totalPages }: PaginationProps) {
         <button
           key={idx}
           onClick={() => handlePageChange(p)}
-          disabled={p === '...'}
+          disabled={p === "..."}
           className={cn(
             "w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold transition",
             p === currentPage
               ? "bg-[#2B2B2B] text-white"
-              : p === '...'
-              ? "text-[#8C8C8C] cursor-default"
-              : "text-[#2B2B2B] hover:bg-gray-100"
+              : p === "..."
+                ? "text-[#8C8C8C] cursor-default"
+                : "text-[#2B2B2B] hover:bg-gray-100",
           )}
         >
           {p}

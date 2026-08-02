@@ -1,19 +1,19 @@
-import { Product, FilterState } from '../types/product';
-
-export const applyFilters = (products: Product[], filters: FilterState): Product[] => {
+export const applyFilters = (products, filters) => {
   return products.filter((product) => {
     // Search Query
     if (filters.searchQuery) {
       const query = filters.searchQuery.toLowerCase();
-      if (!product.name.toLowerCase().includes(query) && 
-          !product.category.toLowerCase().includes(query) && 
-          !product.collection.toLowerCase().includes(query)) {
+      if (
+        !product.name.toLowerCase().includes(query) &&
+        !product.category.toLowerCase().includes(query) &&
+        !product.collection.toLowerCase().includes(query)
+      ) {
         return false;
       }
     }
 
     // Category
-    if (filters.category && filters.category !== 'All') {
+    if (filters.category && filters.category !== "All") {
       if (product.category !== filters.category) return false;
     }
 
@@ -34,12 +34,14 @@ export const applyFilters = (products: Product[], filters: FilterState): Product
 
     // Sizes
     if (filters.sizes.length > 0) {
-      if (!filters.sizes.some(size => product.sizes.includes(size as any))) return false;
+      if (!filters.sizes.some((size) => product.sizes.includes(size)))
+        return false;
     }
 
     // Colors
     if (filters.colors.length > 0) {
-      if (!filters.colors.some(color => product.colors.includes(color as any))) return false;
+      if (!filters.colors.some((color) => product.colors.includes(color)))
+        return false;
     }
 
     // Materials

@@ -1,14 +1,8 @@
-import { Product } from '../../../types/product';
-import ProductCard from './ProductCard';
-import SkeletonCard from './SkeletonCard';
-import EmptyState from './EmptyState';
+import ProductCard from "./ProductCard";
+import SkeletonCard from "./SkeletonCard";
+import EmptyState from "./EmptyState";
 
-interface ProductGridProps {
-  products: Product[];
-  isLoading: boolean;
-}
-
-export default function ProductGrid({ products, isLoading }: ProductGridProps) {
+export default function ProductGrid({ products, isLoading }) {
   if (isLoading) {
     return (
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">

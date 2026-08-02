@@ -1,20 +1,17 @@
-import { useEffect, useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useShopStore } from '../../store/useShopStore';
-import { shopService } from '../../services/shopService';
-import { Product } from '../../types/product';
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useShopStore } from "../../store/useShopStore";
+import { shopService } from "../../services/shopService";
 
-import Breadcrumb from './components/Breadcrumb';
-import ShopHero from './components/ShopHero';
-import ProductToolbar from './components/ProductToolbar';
-import FilterDrawer from './components/FilterDrawer';
-import ProductGrid from './components/ProductGrid';
-import Pagination from './components/Pagination';
-import BottomBanner from './components/BottomBanner';
+import ShopHero from "./components/ShopHero";
+import ProductToolbar from "./components/ProductToolbar";
+import FilterDrawer from "./components/FilterDrawer";
+import ProductGrid from "./components/ProductGrid";
+import Pagination from "./components/Pagination";
+import BottomBanner from "./components/BottomBanner";
 
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
-  
   const filters = useShopStore((state) => state.filters);
   const sort = useShopStore((state) => state.sort);
   const page = useShopStore((state) => state.page);
@@ -22,20 +19,20 @@ export default function Shop() {
   const setSort = useShopStore((state) => state.setSort);
   const setPage = useShopStore((state) => state.setPage);
 
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
   // Parse initial URL params ONCE
   useEffect(() => {
-    const urlCategory = searchParams.get('category');
-    const urlPage = searchParams.get('page');
-    const urlSort = searchParams.get('sort');
-    const urlSizes = searchParams.getAll('size');
-    const urlColors = searchParams.getAll('color');
+    const urlCategory = searchParams.get("category");
+    const urlPage = searchParams.get("page");
+    const urlSort = searchParams.get("sort");
+    const urlSizes = searchParams.getAll("size");
+    const urlColors = searchParams.getAll("color");
 
-    const updates: any = {};
+    const updates = {};
     if (urlCategory) updates.category = urlCategory;
     if (urlSizes.length) updates.sizes = urlSizes;
     if (urlColors.length) updates.colors = urlColors;
@@ -44,7 +41,7 @@ export default function Shop() {
       setFilters(updates);
     }
     if (urlSort) {
-      setSort(urlSort as any);
+      setSort(urlSort);
     }
     if (urlPage) {
       setPage(Number(urlPage));
@@ -55,14 +52,12 @@ export default function Shop() {
   // Update URL when state changes
   useEffect(() => {
     const params = new URLSearchParams();
-    
-    if (filters.category && filters.category !== 'All') params.set('category', filters.category);
-    filters.sizes.forEach(s => params.append('size', s));
-    filters.colors.forEach(c => params.append('color', c));
-    
-    if (sort !== 'Featured') params.set('sort', sort);
-    if (page > 1) params.set('page', page.toString());
-    
+    if (filters.category && filters.category !== "All")
+      params.set("category", filters.category);
+    filters.sizes.forEach((s) => params.append("size", s));
+    filters.colors.forEach((c) => params.append("color", c));
+    if (sort !== "Featured") params.set("sort", sort);
+    if (page > 1) params.set("page", page.toString());
     setSearchParams(params, { replace: true });
   }, [filters, sort, page, setSearchParams]);
 
@@ -73,8 +68,7 @@ export default function Shop() {
 
     const fetchData = async () => {
       // Small fake delay to show skeleton loaders
-      await new Promise(res => setTimeout(res, 500));
-      
+      await new Promise((res) => setTimeout(res, 500));
       const res = await shopService.getProducts({
         filters,
         sort,
@@ -100,16 +94,15 @@ export default function Shop() {
   return (
     <div className="min-h-screen bg-[#FDFBF7] flex flex-col font-sans pt-16">
       <ShopHero />
-      <ProductToolbar 
-        totalProducts={totalProducts} 
-        currentPage={page} 
-        limit={12} 
+      <ProductToolbar
+        totalProducts={totalProducts}
+        currentPage={page}
+        limit={12}
       />
+
       <FilterDrawer />
-      <ProductGrid 
-        products={products} 
-        isLoading={isLoading} 
-      />
+      <ProductGrid products={products} isLoading={isLoading} />
+
       <Pagination totalPages={totalPages} />
       <BottomBanner />
     </div>
