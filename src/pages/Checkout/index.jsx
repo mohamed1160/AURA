@@ -15,7 +15,7 @@ import DeliveryMethods from '../../components/checkout/DeliveryMethods';
 import PaymentMethods from '../../components/checkout/PaymentMethods';
 import OrderSummary from '../../components/checkout/OrderSummary';
 import CheckoutSuccess from '../../components/checkout/CheckoutSuccess';
-import Footer from '../../components/layout/Footer';
+// import Footer from '../../components/layout/Footer';
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -104,7 +104,7 @@ export default function Checkout() {
     return (
       <div className="min-h-screen bg-[#FAF7F2] pt-24 flex flex-col justify-between">
         <CheckoutSuccess orderId={orderSuccess} />
-        <Footer />
+        
       </div>
     );
   }
@@ -214,7 +214,7 @@ export default function Checkout() {
         </div>
       </div>
 
-      <Footer />
+      
     </motion.div>
   );
 }

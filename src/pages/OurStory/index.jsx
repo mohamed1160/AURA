@@ -22,7 +22,7 @@ import pyramidIcon from "../../assets/images/pyramid_icon.png";
 import eyeIcon from "../../assets/images/eye_icon.png";
 import pharaohIcon from "../../assets/images/pharaoh_icon.png";
 import sunsetBg from "../../assets/images/sunset_bg_wide.png";
-import Footer from "../../components/layout/Footer";
+// import Footer from "../../components/layout/Footer";
 
 // Reusable Animation Variants
 const fadeUp = {
@@ -457,7 +457,7 @@ export default function OurStory() {
       {/* =======================
            SECTION 7: Footer
            ======================= */}
-      <Footer />
+      
     </div>
   );
 }

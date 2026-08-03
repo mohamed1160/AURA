@@ -4,7 +4,7 @@ import CartItem from "./components/CartItem";
 import OrderSummary from "./components/OrderSummary";
 import EmptyCart from "./components/EmptyCart";
 import RecommendedProducts from "./components/RecommendedProducts";
-import Footer from "../../components/layout/Footer";
+
 
 import cartHeroImg from "../../assets/images/cart-hero.png";
 
@@ -77,7 +77,7 @@ export default function Cart() {
         <RecommendedProducts />
       </main>
       
-      <Footer />
+      
     </motion.div>
   );
 }
