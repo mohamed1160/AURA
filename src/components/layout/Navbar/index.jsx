@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Search, User, ShoppingBag } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Search, User, ShoppingBag, Menu, X } from 'lucide-react'
 import { useShopStore } from '../../../store/useShopStore'
 import logoImg from '../../../assets/images/aura-logo.png'
 
@@ -13,6 +15,8 @@ const NAV_LINKS = [
 ]
 
 export default function Navbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   const cart = useShopStore((state) => state.cart);
   // Filter out any corrupted items that don't have a valid price
   const validCart = cart ? cart.filter(item => item && typeof item.price === 'number') : [];
@@ -22,7 +26,7 @@ export default function Navbar() {
     <header className="
       fixed top-0 left-0 right-0 z-50
       flex items-center justify-between
-      px-11 h-16
+      px-4 md:px-11 h-16
       backdrop-blur-sm
       border-b border-[#D4C4A0]/40
     ">
@@ -31,11 +35,11 @@ export default function Navbar() {
         to="/"
         className="hover:opacity-75 transition-opacity flex items-center justify-center"
       >
-        <img src={logoImg} alt="AURA" className="h-20 w-auto object-contain mix-blend-multiply scale-110 origin-center" />
+        <img src={logoImg} alt="AURA" className="h-16 md:h-20 w-auto object-contain mix-blend-multiply scale-110 origin-center" />
       </NavLink>
 
-      {/* Nav Links */}
-      <nav>
+      {/* Nav Links — desktop only, untouched */}
+      <nav className="hidden md:block">
         <ul className="flex items-center gap-10">
           {NAV_LINKS.map(({ to, label }) => (
             <li key={to}>
@@ -61,7 +65,7 @@ export default function Navbar() {
       </nav>
 
       {/* Action Icons */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 md:gap-4">
         {[
           { icon: Search,      label: 'Search' },
           { icon: User,        label: 'Account' },
@@ -90,7 +94,50 @@ export default function Navbar() {
             </Wrapper>
           );
         })}
+
+        {/* Hamburger — mobile only */}
+        <button
+          type="button"
+          aria-label="Menu"
+          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          className="md:hidden relative w-9 h-9 flex items-center justify-center text-[#3D2B0E] hover:text-[#B8924A] transition-colors duration-200"
+        >
+          {isMobileMenuOpen ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
+        </button>
       </div>
+
+      {/* Mobile Menu Drawer — mobile only */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="md:hidden absolute top-16 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-[#D4C4A0]/40 overflow-hidden"
+          >
+            <ul className="flex flex-col px-4 py-4 gap-1">
+              {NAV_LINKS.map(({ to, label }) => (
+                <li key={to}>
+                  <NavLink
+                    to={to}
+                    end={to === '/'}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={({ isActive }) => `
+                      block py-3 font-[family-name:var(--font-ui)] text-[0.8rem] font-medium
+                      tracking-[0.14em] uppercase transition-colors duration-200
+                      ${isActive ? 'text-[#B8924A]' : 'text-[#3D2B0E]'}
+                    `}
+                  >
+                    {label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

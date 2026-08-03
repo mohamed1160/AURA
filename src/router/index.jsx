@@ -6,6 +6,9 @@ import Cart     from '../pages/Cart'
 import Checkout from '../pages/Checkout'
 import OurStory from '../pages/OurStory'
 import Contact  from '../pages/Contact'
+import CollectionsPage from '../pages/Collection/CollectionsPage'
+import Journal from '../pages/Journal/Journal'
+import Footer from '../components/layout/Footer/Footer'
 
 /* ── Placeholder pages ───────────────────────────── */
 const ComingSoon = ({ name }) => (
@@ -35,7 +38,7 @@ export default function AppRouter() {
         <Route path="/"                   element={<Home />} />
         <Route path="/shop"               element={<Shop />} />
         <Route path="/shop/:category"     element={<Shop />} />
-        <Route path="/collections"        element={<ComingSoon name="Collections" />} />
+        <Route path="/collections"        element={<CollectionsPage />} />
         <Route path="/collections/:slug"  element={<ComingSoon name="Collection" />} />
         <Route path="/product/:id"        element={<ComingSoon name="Product" />} />
         <Route path="/new-arrivals"       element={<ComingSoon name="New Arrivals" />} />
@@ -43,7 +46,7 @@ export default function AppRouter() {
 
         {/* ── Brand Pages ── */}
         <Route path="/our-story"          element={<OurStory />} />
-        <Route path="/journal"            element={<ComingSoon name="Journal" />} />
+        <Route path="/journal"            element={<Journal />} />
         <Route path="/journal/:slug"      element={<ComingSoon name="Journal Post" />} />
         <Route path="/contact"            element={<Contact />} />
 
@@ -72,6 +75,11 @@ export default function AppRouter() {
         {/* ── 404 ── */}
         <Route path="*"                   element={<ComingSoon name="404 — Page Not Found" />} />
       </Routes>
+
+
+      <Footer />
     </>
+
+    
   )
 }
